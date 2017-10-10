@@ -25,9 +25,8 @@ public class Player {
 		roll2 = die.roll();
 		
 		
-		
+		// all the game logic is here
 		if (roll1 == roll2 && roll1 != 1) {
-			
 			// win conditions:
 			if (score >= winPoints) {
 				// the player wins
@@ -70,6 +69,14 @@ public class Player {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public int getRoll1() {
+		return roll1;
+	}
+	
+	public int getRoll2() {
+		return roll2;
 	}
 	
 	
