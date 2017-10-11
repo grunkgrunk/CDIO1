@@ -33,8 +33,8 @@ public class MainApplication extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-
-		game = new Game("Red", "Blue");
+		 
+		game = new Game();
 
 		primaryStage.setTitle("Dice game");
 		Group root = new Group();

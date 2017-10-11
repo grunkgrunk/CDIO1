@@ -17,6 +17,11 @@ public class Game {
 		player1 = new Player(name1, die1, die2);
 		player2 = new Player(name2, die1, die2);
 	}
+	
+	public Game() {
+		player1 = new Player("1", die1, die2);
+		player2 = new Player("2", die1, die2);
+	}
 
 	private void greetPlayers() {
 		System.out.printf("Welcome %s and %s to a game of dice! %nA game where everything is NOT determined by you! %n",
