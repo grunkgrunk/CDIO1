@@ -16,8 +16,9 @@ public class MainApplication extends Application {
 	private double width = 600;
 	private double height = 600;
 	
-	private int score = 0;
-	
+	// We want to know if the previous roll resulted in gamover 
+	// because we don't want to immediately skip to the endscreen after a player 
+	// rolls a winning roll.
 	private boolean prevGameover = false;
 
 	DieRenderer renderer;
@@ -55,15 +56,13 @@ public class MainApplication extends Application {
 					renderer.setClearColor(Color.rgb(33, 150, 243, 0.1));
 
 				}
-				// renderer.setClearColor(Color.rgb(0,0,0, 0.1));
-				//renderer.setParticleHues(100);
 
 				if (gameover && prevGameover) {
 					renderer.goWild();
 				} else {
 
-					// save the score so we can draw it 
-					score = game.getCurrentScore();
+					// Give the score to the renderer.
+					int score = game.getCurrentScore();
 					renderer.setScore(score);
 					// set the energy according to player score
 					double maxEnergy = 1.1;

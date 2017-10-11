@@ -2,7 +2,16 @@ package dieGame;
 
 import java.util.Random;
 
+// Particle class 
+// Responsible for updating it's state
+// The most important thing is that 
+// velocity is added to position. 
+// This creates acceleration and is what makes 
+// the particles look life-like.
+
 public class Particle {
+	// We could have a vector class so we didn't have to declare this many variables.
+	// This would also make it easier to normalize a vector and find the magnitude of it etc.
 	private double x = 0;
 	private double y = 0;
 	private double vx = 0;
@@ -10,18 +19,14 @@ public class Particle {
 	private double r = 0.5;
 	private double hue = Math.random() * 255;
 	private double energy = 0.1;
-	// private double hue = 0;
 	private boolean frictionOn = true;
-
-	static Random rnd = new Random();
-
+	private static Random rnd = new Random();
 	private double goalX = -1;
 	private double goalY = -1;
 
 	public Particle(double x, double y) {
 		this.x = x;
 		this.y = y;
-
 	}
 
 	public void update() {
@@ -42,9 +47,10 @@ public class Particle {
 
 		// Something is wrong with this. All particles seem to change
 		// color in a pattern.
-		hue += Math.random() * 3;
-		// hue %= 256;
-		// All particles seem to move to the left
+		hue += Math.random() * 10;
+		hue %= 240;
+		//hue += x/100;
+		
 		double rx = rnd.nextDouble() - 0.5;
 		double ry = rnd.nextDouble() - 0.5;
 		double mag = Math.sqrt(rx * rx + ry * ry);

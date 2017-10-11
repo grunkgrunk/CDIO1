@@ -8,6 +8,7 @@ public class Player {
 	private Die die2;
 
 	// init these values out of range of die
+	// this way players can't win anything from their previous rolls.
 	private int prevRoll1 = -1;
 	private int prevRoll2 = -1;
 	

@@ -9,11 +9,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
 public class DieRenderer {
-
 	private Particle[] particles;
-
 	private GraphicsContext gc;
-
 	private Color clearColor;
 
 	private double width;
@@ -21,7 +18,7 @@ public class DieRenderer {
 
 	private int die1 = 0;
 	private int die2 = 0;
-	
+
 	private String scoreText = "";
 	private Font font = Font.font("Verdana", 50);
 
@@ -30,30 +27,22 @@ public class DieRenderer {
 	// Sometimes bug when quitting
 
 	// Coordinates for all the sides of dice.
+	// Every element in dieSides[0..5] is a 2D array containing all the points for a  
+	// side for a six-sided die. The array is sorted so that the first element, 0, corresponds to 1 eye 
+	// and so forth. 
 	private static int[][][] dieSides = { { { 1, 1 }, }, { { 2, 0 }, { 0, 2 } }, { { 2, 0 }, { 1, 1 }, { 0, 2 } },
-			{ { 0, 0 }, { 2, 0 },
-					{ 0, 2 }, { 2, 2 } },
-			{ { 0, 0 }, { 2, 0 }, { 1, 1 }, { 0, 2 }, { 2, 2 } }, { { 0, 0 }, { 2, 0 },
-
-					{ 0, 1 }, { 2, 1 },
-
-					{ 0, 2 }, { 2, 2 } } };
+			{ { 0, 0 }, { 2, 0 }, { 0, 2 }, { 2, 2 } }, { { 0, 0 }, { 2, 0 }, { 1, 1 }, { 0, 2 }, { 2, 2 } },
+			{ { 0, 0 }, { 2, 0 }, { 0, 1 }, { 2, 1 }, { 0, 2 }, { 2, 2 } } };
 
 	private int numParticles = 10000;
 
 	public DieRenderer(Canvas canvas) {
-		
-		
-		
+
 		gc = canvas.getGraphicsContext2D();
 		width = canvas.getWidth();
 		height = canvas.getHeight();
 
-		
-		
 		clearColor = Color.rgb(0, 0, 0, 0.1);
-		
-		
 
 		particles = new Particle[numParticles];
 		for (int i = 0; i < numParticles; i++) {
@@ -98,8 +87,8 @@ public class DieRenderer {
 	}
 
 	private void distributeParticles() {
-		// int prEye = (numParticles/4) / eyeSum;
-		int iterations = numParticles / 2;
+
+		int iterations = numParticles * 2;
 
 		double betweenEyes = 50;
 
@@ -132,7 +121,6 @@ public class DieRenderer {
 	}
 
 	public void goWild() {
-
 		for (Particle p : particles) {
 			p.explode(50);
 			// set the goal to the middle of the screen
@@ -151,11 +139,11 @@ public class DieRenderer {
 		if (!scoreText.equals("") && !isWild) {
 			gc.setTextAlign(TextAlignment.CENTER);
 			gc.setFont(font);
-			gc.setFill(Color.rgb(0,0,0,0.1));
-			gc.fillText(scoreText, width/2, 100);
+			gc.setFill(Color.rgb(0, 0, 0, 0.1));
+			gc.fillText(scoreText, width / 2, 100);
 
 		}
-		
+
 		for (Particle p : particles) {
 
 			if (isWild) {
@@ -165,7 +153,7 @@ public class DieRenderer {
 				double mag = Math.sqrt(diffx * diffx + diffy * diffy);
 
 				p.explode(1 / mag);
-				
+
 				// Draw lines between particles
 				if (Math.random() > 0.999) {
 					Particle p1 = getRandomParticle();
@@ -202,7 +190,6 @@ public class DieRenderer {
 			gc.setFill(Color.hsb(p.getHue(), 1, 1));
 			gc.fillOval(x, y, r, r);
 		}
-		
 
 	}
 
