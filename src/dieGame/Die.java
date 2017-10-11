@@ -8,11 +8,10 @@ public class Die {
 		roll();
 	}
 	// roll the die and return the value (1-6)
-	// Maybe not random as we want it to 
 	public int roll() {
-		double d1=(float)Math.random();     // 0-1
-		double d2=d1*(faces);                     // 0-5
-		faceValue = (int)Math.ceil(d2);              // 0-5 integer
+		double d1=(float)Math.random();     // [0 ; 1[
+		double d2=d1*faces;                    // [0 ; 6[
+		faceValue = (int)Math.ceil(d2);        // [1-6] integer
 		return faceValue;
 	}
 	
