@@ -13,9 +13,6 @@ import javafx.stage.Stage;
 
 public class MainApplication extends Application {
 
-	private double x = 10;
-	private double y = 10;
-
 	private double width = 600;
 	private double height = 600;
 	
