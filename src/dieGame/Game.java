@@ -3,12 +3,12 @@ package dieGame;
 import java.util.Scanner;
 
 public class Game {
-	Player player1;
-	Player player2;
-	Player currentPlayer;
+	private Player player1;
+	private Player player2;
+	private Player currentPlayer;
 	
-	int turn = 0;
-	int maxPlayers = 2;
+	private int turn = 0;
+	private int maxPlayers = 2;
 	
 	
 	public Game(String name1, String name2) {
@@ -64,12 +64,39 @@ public class Game {
 	
 	// return a bool indicating if the game is over or not.
 	private boolean run() {
-		currentPlayer.takeTurn();
+		boolean extraTurn = currentPlayer.takeTurn();
 		if (currentPlayer.getHasWon()) {
 			return true;
 		}
-		nextTurn();
+		if (!extraTurn) {
+			nextTurn();
+		}
 		return false;
+	}
+	
+	public boolean runOnce() {
+		 
+		currentPlayer = determinePlayer();  
+	
+		boolean gameover = run();
+		return gameover;
+		
+	}
+	
+	public int getTurn() {
+		return turn;
+	}
+	
+	public int getCurrentRoll1() {
+		return currentPlayer.getRoll1();
+	}
+	
+	public int getCurrentRoll2() {
+		return currentPlayer.getRoll2();
+	}
+	
+	public int getCurrentScore() {
+		return currentPlayer.getScore();
 	}
 	
 	private Player determinePlayer() {
