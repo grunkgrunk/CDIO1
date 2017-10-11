@@ -11,9 +11,10 @@ public class Main {
 		String name1 = sc.nextLine();
 		System.out.print("Player 2: What is your name? ");
 		String name2 = sc.nextLine();
-		sc.close();
 		
 		Game game = new Game(name1, name2);
 		game.runNormal();
+		
+		sc.close();
 	}
 }
