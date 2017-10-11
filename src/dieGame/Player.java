@@ -4,11 +4,13 @@ public class Player {
 	private int score = 0;
 	private static final int winPoints = 40;
 
-	private Die die = new Die();
+	private Die die1;
+	private Die die2;
 
 	// init these values out of range of die
 	private int prevRoll1 = -1;
 	private int prevRoll2 = -1;
+	
 	private int roll1 = -1;
 	private int roll2 = -1;
 
@@ -17,14 +19,16 @@ public class Player {
 
 	boolean extraTurn = false;
 
-	public Player(String name) {
+	public Player(String name, Die die1, Die die2) {
 		this.name = name;
+		this.die1 = die1;
+		this.die2 = die2;
 	}
 
 	public boolean takeTurn() {
 		// boolean extraTurn = false;
-		roll1 = die.roll();
-		roll2 = die.roll();
+		roll1 = die1.roll();
+		roll2 = die2.roll();
 
 		// all the game logic is here
 		if (roll1 == roll2) {
@@ -44,7 +48,6 @@ public class Player {
 			if (prevRoll1 == 6 && prevRoll2 == 6 && roll1 == 6) {
 				// wins
 				hasWon = true;
-				// return;
 			}
 			// grant an extra turn because we rolled two equal dice.
 			if (!extraTurn) {

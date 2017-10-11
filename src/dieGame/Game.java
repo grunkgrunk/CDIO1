@@ -6,13 +6,16 @@ public class Game {
 	private Player player1;
 	private Player player2;
 	private Player currentPlayer;
+	
+	private Die die1 = new Die();
+	private Die die2 = new Die();
 
 	private int turn = 0;
 	private int maxPlayers = 2;
 
 	public Game(String name1, String name2) {
-		player1 = new Player(name1);
-		player2 = new Player(name2);
+		player1 = new Player(name1, die1, die2);
+		player2 = new Player(name2, die1, die2);
 	}
 
 	private void greetPlayers() {

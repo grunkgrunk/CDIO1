@@ -5,6 +5,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 public class DieRenderer {
 
@@ -19,6 +22,9 @@ public class DieRenderer {
 
 	private int die1 = 0;
 	private int die2 = 0;
+	
+	private String scoreText = "";
+	private Font font = Font.font("Verdana", 50);
 
 	private boolean isWild = false;
 
@@ -27,7 +33,6 @@ public class DieRenderer {
 	// Coordinates for all the sides of dice.
 	private static int[][][] dieSides = { { { 1, 1 }, }, { { 2, 0 }, { 0, 2 } }, { { 2, 0 }, { 1, 1 }, { 0, 2 } },
 			{ { 0, 0 }, { 2, 0 },
-
 					{ 0, 2 }, { 2, 2 } },
 			{ { 0, 0 }, { 2, 0 }, { 1, 1 }, { 0, 2 }, { 2, 2 } }, { { 0, 0 }, { 2, 0 },
 
@@ -38,11 +43,18 @@ public class DieRenderer {
 	private int numParticles = 10000;
 
 	public DieRenderer(Canvas canvas) {
-		this.gc = canvas.getGraphicsContext2D();
+		
+		
+		
+		gc = canvas.getGraphicsContext2D();
 		width = canvas.getWidth();
 		height = canvas.getHeight();
 
+		
+		
 		clearColor = Color.rgb(0, 0, 0, 0.1);
+		
+		
 
 		particles = new Particle[numParticles];
 		for (int i = 0; i < numParticles; i++) {
@@ -137,6 +149,14 @@ public class DieRenderer {
 		gc.setFill(clearColor);
 		gc.fillRect(0, 0, width, height);
 
+		if (!scoreText.equals("") && !isWild) {
+			gc.setTextAlign(TextAlignment.CENTER);
+			gc.setFont(font);
+			gc.setFill(Color.rgb(0,0,0,0.1));
+			gc.fillText(scoreText, width/2, 100);
+
+		}
+		
 		for (Particle p : particles) {
 
 			if (isWild) {
@@ -146,7 +166,8 @@ public class DieRenderer {
 				double mag = Math.sqrt(diffx * diffx + diffy * diffy);
 
 				p.explode(1 / mag);
-
+				
+				// Draw lines between particles
 				if (Math.random() > 0.999) {
 					Particle p1 = getRandomParticle();
 					Particle p2 = getRandomParticle();
@@ -160,6 +181,7 @@ public class DieRenderer {
 			double x = p.getX();
 			double y = p.getY();
 
+			// Loop around the screen.
 			if (x < 0) {
 				p.setX(width);
 			}
@@ -181,11 +203,17 @@ public class DieRenderer {
 			gc.setFill(Color.hsb(p.getHue(), 1, 1));
 			gc.fillOval(x, y, r, r);
 		}
+		
+
 	}
 
 	private Particle getRandomParticle() {
 		int pIdx = (int) (Math.random() * numParticles);
 		return particles[pIdx];
+	}
+
+	public void setScore(int score) {
+		this.scoreText = Integer.toString(score);
 	}
 
 }

@@ -13,11 +13,15 @@ import javafx.stage.Stage;
 
 public class MainApplication extends Application {
 
-	double x = 10;
-	double y = 10;
+	private double x = 10;
+	private double y = 10;
 
-	double width = 600;
-	double height = 600;
+	private double width = 600;
+	private double height = 600;
+	
+	private int score = 0;
+	
+	private boolean prevGameover = false;
 
 	DieRenderer renderer;
 	GraphicsContext gc;
@@ -55,24 +59,37 @@ public class MainApplication extends Application {
 
 				}
 				// renderer.setClearColor(Color.rgb(0,0,0, 0.1));
-				renderer.setParticleHues(100);
-				// If a player rolls twice it wont be recognized.
+				//renderer.setParticleHues(100);
 
-				if (gameover) {
+				if (gameover && prevGameover) {
 					renderer.goWild();
 				} else {
+
+					// save the score so we can draw it 
+					score = game.getCurrentScore();
+					renderer.setScore(score);
 					// set the energy according to player score
-					renderer.setParticleEnergy((double) game.getCurrentScore() / 60 + 0.01);
+					double maxEnergy = 1.1;
+					double energy = (double) score / 60 + 0.01;
+					if (energy > maxEnergy) {
+						energy = maxEnergy;
+					}
+					
+					renderer.setParticleEnergy(energy);
 					renderer.setShowDice(game.getCurrentRoll1(), game.getCurrentRoll2());
 				}
+				
+				prevGameover = gameover;
 			}
 		});
 
 		AnimationTimer timer = new AnimationTimer() {
 			@Override
 			public void handle(long now) {
-
 				renderer.render((double) now);
+				
+				//gc.fillText(Integer.toString(score), width/2, 100);
+				//gc.fillText("100", 100, 100);
 			}
 		};
 
